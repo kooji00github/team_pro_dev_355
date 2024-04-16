@@ -21,13 +21,38 @@ class ItemController extends Controller
     /**
      * 商品一覧
      */
-    public function index()
+    public function index(Request $request)
     {
-        // 商品一覧取得
-        $perPage= 10;
-        $items = Item::paginate($perPage);
+        // 1ページあたりの表示件数を設定
+        $perPage = 10;
 
-        return view('item.index', compact('items'));
+        // リクエストから検索キーワードを取得
+        $keyword = $request->input('keyword');
+
+        // リクエストから種別を取得
+        $type = $request->input('type');
+
+        // Itemモデルから新しいクエリビルダインスタンスを作成
+        $query = Item::query();
+
+        // 検索キーワードが空でない場合、名前と詳細で検索
+        if (!empty($keyword)) {
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', "%{$keyword}%")
+                      ->orWhere('detail', 'LIKE', "%{$keyword}%");
+            });
+        }
+
+        // 種別が空でない場合、種別で絞り込み
+        if (!empty($type)) {
+            $query->where('type', $type);
+        }
+
+        // ページネーションを適用して結果を取得
+        $items = $query->paginate($perPage);
+
+        // 結果をビューに渡して表示
+        return view('item.index', compact('items', 'keyword', 'type'));
     }
 
     /**
