@@ -41,4 +41,11 @@
     ```console
     php artisan serve
     ```
-# tearm999
+
+* ページネーション
+
+    ```console
+    php artisan vendor:publish --tag=laravel-pagination
+    ```
+
+# tearm_pro_dev_355
