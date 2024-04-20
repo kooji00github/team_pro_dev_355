@@ -30,7 +30,7 @@
                                         </select>
                                     </div>
                                     <div class="col-7 px-0">
-                                        <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="検索キーワード" value="{{ $keyword }}">
+                                        <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="名前や詳細で検索" value="{{ $keyword }}">
                                     </div>
                                     <div class="col-3 px-0">
                                         <div class="input-group-append">
