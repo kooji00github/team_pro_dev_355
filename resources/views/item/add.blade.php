@@ -30,7 +30,12 @@
 
                         <div class="form-group">
                             <label for="type">種別</label>
-                            <input type="text" class="form-control" id="type" name="type" placeholder="種別">
+                            <select id="type" name="type" class="form-control">
+                                <option value="">種別を選択</option>
+                                @foreach($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">

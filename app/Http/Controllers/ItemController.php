@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\Type;
 
 class ItemController extends Controller
 {
@@ -26,11 +27,9 @@ class ItemController extends Controller
         // 1ページあたりの表示件数を設定
         $perPage = 10;
 
-        // リクエストから検索キーワードを取得
+        // リクエストから検索キーワードと種別を取得
         $keyword = $request->input('keyword');
-
-        // リクエストから種別を取得
-        $type = $request->input('type');
+        $selectedType = $request->input('type');
 
         // Itemモデルから新しいクエリビルダインスタンスを作成
         $query = Item::query();
@@ -39,20 +38,28 @@ class ItemController extends Controller
         if (!empty($keyword)) {
             $query->where(function ($query) use ($keyword) {
                 $query->where('name', 'LIKE', "%{$keyword}%")
-                      ->orWhere('detail', 'LIKE', "%{$keyword}%");
+                    ->orWhere('detail', 'LIKE', "%{$keyword}%");
             });
         }
 
         // 種別が空でない場合、種別で絞り込み
-        if (!empty($type)) {
-            $query->where('type', $type);
+        if (!empty($selectedType)) {
+            $query->whereHas('type', function ($query) use ($selectedType) {
+                $query->where('name', $selectedType);
+            });
         }
+
+        // 新着順に並べ替え
+        $query->orderBy('created_at', 'desc');
 
         // ページネーションを適用して結果を取得
         $items = $query->paginate($perPage);
 
+        // typesテーブルから全ての種別を取得
+        $types = Type::all();
+
         // 結果をビューに渡して表示
-        return view('item.index', compact('items', 'keyword', 'type'));
+        return view('item.index', compact('items', 'types', 'keyword', 'selectedType'));
     }
 
     /**
@@ -64,20 +71,27 @@ class ItemController extends Controller
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
-                'name' => 'required|max:100',
+                'name' => 'required|max:100', // 必須、100文字以内
+                'type' => 'required', // 必須
             ]);
+
+            // 選択された種別のIDを取得
+            $typeId = $request->type;
 
             // 商品登録
             Item::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                'type' => $request->type,
+                'type_id' => $typeId,  // 選択された種別のIDを設定
                 'detail' => $request->detail,
             ]);
 
             return redirect('/items');
         }
 
-        return view('item.add');
+        // typesテーブルから全ての種別を取得
+        $types = Type::all();
+
+        return view('item.add', compact('types'));
     }
 }

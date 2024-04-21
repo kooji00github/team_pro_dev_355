@@ -14,7 +14,7 @@ class Item extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'type',
+        'type_id',
         'detail',
     ];
 
@@ -33,4 +33,12 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    /**
+     * アイテムを所有する種別を取得する。
+     */
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }

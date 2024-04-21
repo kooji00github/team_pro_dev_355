@@ -21,18 +21,15 @@
                                     <div class="col-2 px-0">
                                         <select id="typeSelect" name="type" class="form-control">
                                             <option value="">全ての種別</option>
-                                            <option value="食料品" {{ $type == '食料品' ? 'selected' : '' }}>食料品</option>
-                                            <option value="衛生用品" {{ $type == '衛生用品' ? 'selected' : '' }}>衛生用品</option>
-                                            <option value="衣料品" {{ $type == '衣料品' ? 'selected' : '' }}>衣料品</option>
-                                            <option value="医療品" {{ $type == '医療品' ? 'selected' : '' }}>医療品</option>
-                                            <option value="電子機器" {{ $type == '電子機器' ? 'selected' : '' }}>電子機器</option>
-                                            <option value="その他" {{ $type == 'その他' ? 'selected' : '' }}>その他</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type->name }}" {{ $selectedType == $type->name ? 'selected' : '' }}>{{ $type->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-7 px-0">
+                                    <div class="col-6 px-0">
                                         <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="名前や詳細で検索" value="{{ $keyword }}">
                                     </div>
-                                    <div class="col-3 px-0">
+                                    <div class="col-4 px-0">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-success mx-1"><i class="fas fa-search"></i> 絞り込み</button>
                                             <button type="button" id="clearSearch" class="btn btn-default"><i class="fas fa-times"></i>リセット</button>
@@ -58,23 +55,25 @@
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->type->name }}</td>
+                                <td>{{ $item->detail }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="d-flex justify-content-between mx-3 mt-2">
-                    <div>
-                        {{ $items->firstItem() }} - {{ $items->lastItem() }} / {{ $items->total() }}
-                    </div>
+                    @if($items->total() > 0)
+                        <div>
+                            {{ $items->firstItem() }} - {{ $items->lastItem() }} / {{ $items->total() }}
+                        </div>
+                    @endif
                     <div>
                         <!-- ページネーションを配置 -->
-                        {{ $items->appends(['keyword' => $keyword, 'type' => $type])->links('pagination::custom') }}
+                        {{ $items->appends(['keyword' => $keyword, 'type' => $selectedType])->links('pagination::custom') }}
                     </div>
                 </div>
             </div>
