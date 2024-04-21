@@ -18,7 +18,7 @@ return [
     'register_message'            => 'アカウントを登録する',
     'password_reset_message'      => 'パスワードをリセットする',
     'reset_password'              => 'パスワードをリセットする',
-    'send_password_reset_link'    => 'パスワードリセットリンクを送信する。',
+    'send_password_reset_link'    => 'パスワードリセットリンクを送信する',
     'verify_message'              => 'あなたのアカウントは認証が必要です。',
     'verify_email_sent'           => 'あなたのメールアドレスに認証用のリンクを送信しました。',
     'verify_check_your_email'     => '続行する前に、認証用リンクについてメールを確認してください。',
