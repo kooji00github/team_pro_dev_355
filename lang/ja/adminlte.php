@@ -5,7 +5,7 @@ return [
     'full_name'                   => '氏名',
     'email'                       => 'メールアドレス',
     'password'                    => 'パスワード',
-    'retype_password'             => 'もう一度入力',
+    'retype_password'             => 'パスワード（確認）',
     'remember_me'                 => 'パスワードを記憶する',
     'register'                    => '登録する',
     'register_a_new_membership'   => 'アカウントを登録する',
