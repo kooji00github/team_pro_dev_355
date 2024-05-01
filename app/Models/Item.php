@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,6 +17,7 @@ class Item extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'status', // 'active' or 'inactive
         'type_id',
         'detail',
     ];
