@@ -3,10 +3,10 @@
 @section('title', '商品一覧')
 
 @section('content_header')
-    <h1>商品一覧</h1>
     @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
+    <h1>商品一覧</h1>
 @stop
 
 @section('content')
