@@ -4,7 +4,7 @@
 
 @section('content_header')
     @if (session('message'))
-    <div class="alert alert-success">{{ session('message') }}</div>
+        <div class="alert alert-success">{{ session('message') }}</div>
     @endif
     <h1>商品一覧</h1>
 @stop
@@ -132,8 +132,6 @@
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('clearSearch').addEventListener('click', function() {
