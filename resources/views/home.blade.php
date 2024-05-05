@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>商品管理システムへようこそ</p>
+    <p>あなたの安全を守る防災用品サイトへのご案内</p>
 @stop
 
 @section('css')
