@@ -14,29 +14,33 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <form action="{{ route('items.index') }}" method="get" class="row">
-                        <div class="col-xl-2 d-flex align-items-center">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <div class="d-flex align-items-center" style="min-width: 100px;">
                             <h3 class="card-title">商品一覧</h3>
                         </div>
-                        <div class="col-1.5 px-0">
-                            <select id="typeSelect" name="type" class="form-control">
-                                <option value="">全ての種別</option>
-                                @foreach($types as $type)
-                                    <option value="{{ $type->name }}" {{ $selectedType == $type->name ? 'selected' : '' }}>{{ $type->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-xl px-0">
-                            <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="名前や詳細で検索" value="{{ $keyword }}">
-                        </div>
-                        <div class="col-xl-3 d-flex px-0">
-                            <button type="submit" class="btn btn-success mr-1"><i class="fas fa-search"></i> 絞り込み</button>
-                            <button type="button" id="clearSearch" class="btn btn-default"><i class="fas fa-times"></i>リセット</button>
-                        </div>
-                        <div class="col-1.5 d-flex justify-content-end">
+                        <form action="{{ route('items.index') }}" method="get" class="d-flex justify-content-start flex-grow-1 flex-wrap">
+                            <div class="px-1" style="min-width: 130px;">
+                                <select id="typeSelect" name="type" class="form-control">
+                                    <option value="">全ての種別</option>
+                                    @foreach($types as $type)
+                                        <option value="{{ $type->name }}" {{ $selectedType == $type->name ? 'selected' : '' }}>{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="px-1 flex-grow-1" style="min-width: 200px;">
+                                <input type="text" id="searchInput" name="keyword" class="form-control" placeholder="名前や詳細で検索" value="{{ $keyword }}">
+                            </div>
+                            <div class="px-1" style="min-width: 125px;">
+                                <button type="submit" class="btn btn-success mr-1"><i class="fas fa-search"></i> 絞り込み</button>
+                            </div>
+                            <div class="px-1"  style="min-width: 110px;">
+                                <button type="button" id="clearSearch" class="btn btn-default"><i class="fas fa-times"></i>リセット</button>
+                            </div>
+                        </form>
+                        <div class="d-flex justify-content-end" style="min-width: 120px;">
                             <a href="{{ url('items/add') }}" class="btn btn-default"><i class="fas fa-plus"></i> 商品登録</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover table-fixed">
