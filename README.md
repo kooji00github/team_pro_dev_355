@@ -24,7 +24,7 @@
 
 ## システム閲覧
 
-[アプリケーションヘージへ](https://item-management-pro-dev-355-f40ef6901af6.herokuapp.com/)
+[アプリケーションページへ](https://item-management-pro-dev-355-f40ef6901af6.herokuapp.com/)
 
 ### テストアカウント情報
 
